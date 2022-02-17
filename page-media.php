@@ -33,21 +33,21 @@ get_header();
             );
             
             $query_slds = new WP_Query( $args );
-            $hrtCntner = $dtCntner = $capBlock= '';
+            $slider_horizontal_container = $slider_dotl_container = $capBlock= '';
             
             while($query_slds->have_posts()){
                 $query_slds->the_post();
 
                 if( ((int)($query_slds->current_post)) < 3){ 
-                    $hrtCntner = $hrtCntner . '<div class="slideshow-item active-' . (((int)($query_slds->current_post)) + 1).'">';
+                    $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-' . (((int)($query_slds->current_post)) + 1).'">';
                 }
                 elseif ( ((int)($query_slds->current_post)) >= ( ((int)($query_slds->post_count)) - 2)) {
-                    $hrtCntner = $hrtCntner . '<div class="slideshow-item active-' . (6 - ( ((int)($query_slds->post_count)) - ((int)($query_slds->current_post)) )) . '">';
+                    $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-' . (6 - ( ((int)($query_slds->post_count)) - ((int)($query_slds->current_post)) )) . '">';
                 }
                 else {
-                    $hrtCntner = $hrtCntner . '<div class="slideshow-item active-other">';
+                    $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-other">';
                 }
-                $hrtCntner = $hrtCntner
+                $slider_horizontal_container = $slider_horizontal_container
                        . '<picture>'
                             . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 1400px)">'
                             . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 769px)">'
@@ -64,7 +64,7 @@ get_header();
                    . '<div class="spi-panel-media">' . $post->post_content .  '</div>');
                $capBlock = $capBlock . '</div>';
 
-               $dtCntner = $dtCntner . '<span class="dot ' . (( ((int)($query_slds->current_post)) == 0) ? 'hmecrslatve':'') . '"></span>';
+               $slider_dotl_container = $slider_dotl_container . '<span class="dot ' . (( ((int)($query_slds->current_post)) == 0) ? 'hmecrslatve':'') . '"></span>';
                
                 
             }
@@ -74,13 +74,13 @@ get_header();
         echo ''
             . '<div class="spi-slider-container-caption">'
                 . '<div class="spi-slideshow-wrapper">'
-                    . $hrtCntner
+                    . $slider_horizontal_container
                 . '</div>'
                 . '<div class="spi-caption-block">'
                     . $capBlock
                 . '</div>'
                 . '<div class="spi-dot-container">'
-                    . $dtCntner
+                    . $slider_dotl_container
                 . '</div>'
             . '</div>';
           
@@ -96,7 +96,7 @@ get_header();
         $query1 = new WP_Query( array( 'category_name' => 'video' ) );
         $last_count = floor(($query1->post_count)/3);
         
-        $crslIndctrs = $crslCntrls = $crslInner = '';
+        $crslIndctrs = $crslCntrls = $carousel_inner_content = '';
         
         
         $crslCntrls = $crslCntrls
@@ -116,18 +116,18 @@ get_header();
             //echo htmlentities(var_dump($content));
             $blocks = parse_blocks( $content );
                         
-            $crslInner = $crslInner
+            $carousel_inner_content = $carousel_inner_content
                 . '<article class="coverflow-item-card coverflow-helper-card-' . (($count < 5) ? ($count + 1) : "other") . '" >'
                     . '<div class="spi-media-thumbnail">';
                         foreach ( $blocks as $block ) {
                            $output = simplexml_load_string( $block['innerHTML'] );
                         
-                            // $crslInner = $crslInner . $block['innerHTML']; 
-                            $crslInner = $crslInner 
+                            // $carousel_inner_content = $carousel_inner_content . $block['innerHTML']; 
+                            $carousel_inner_content = $carousel_inner_content 
                                 . '<iframe src="' . $output->attributes()->{'src'} . '" class="spi-responsive-iframe-media" frameborder="0" allowfullscreen="true" loading="lazy"></iframe>';
 
                         }                         
-                $crslInner = $crslInner         
+                $carousel_inner_content = $carousel_inner_content         
                     . '</div>'
                     . '<div class="spi-card-content">'
                     . '</div>'
@@ -145,7 +145,7 @@ get_header();
             . '<div class="spi-coverflow-container-card">'
                 . $header_video
                 . '<section class="spi-coverflow-wrapper-cards" data-autoplay="false">'
-                    . $crslInner
+                    . $carousel_inner_content
                 . '</section>'
                 . $crslCntrls                
             . '</div>';
@@ -172,7 +172,7 @@ get_header();
         $query2 = new WP_Query( array( 'category_name' => 'news-events' ) );
         $last_count = floor(($query2->post_count)/3);
         
-        $crslIndctrsM = $crslCntrlsM = $crslInnerM = '';
+        $crslIndctrsM = $crslCntrlsM = $carousel_inner_contentM = '';
         
 
         $crslCntrlsM = $crslCntrlsM
@@ -201,7 +201,7 @@ get_header();
                 $label = $logo[0];
             }
             
-            $crslInnerM = $crslInnerM
+            $carousel_inner_contentM = $carousel_inner_contentM
                 . '<article class="coverflow-item-card coverflow-helper-card-' . (($count < 5) ? ($count + 1) : "other") . '" >'
                     . '<div class="spi-media-thumbnail">'
                         . '<picture>'
@@ -230,7 +230,7 @@ get_header();
             . '<div class="spi-coverflow-container-card">'
                 . $header_media
                 . '<section class="spi-coverflow-wrapper-cards" data-autoplay="false">'
-                    . $crslInnerM
+                    . $carousel_inner_contentM
                 . '</section>'
                 . $crslCntrlsM                
             . '</div>';        

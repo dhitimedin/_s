@@ -2010,12 +2010,6 @@ animate-other {
 }
 
 
-
-
-
-
-
-    
 /**********************************************
 # Media Query to emulate Bootstrap 
 # medium breakpoint
@@ -2027,7 +2021,6 @@ animate-other {
         display: none;
         top: 35vw;
     }
-
   
     .dot {
         height: 2.5vw;
@@ -2217,8 +2210,6 @@ animate-other {
     .spi-dot-container-small{
        display: none;
     } 
-    
-
     
 }
 

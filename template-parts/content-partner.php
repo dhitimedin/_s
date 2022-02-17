@@ -9,8 +9,8 @@
 
 
     //Variable declaration for partner slider
-    $crslInner = $crslContainer = $partnerTitle = '';
-    $dtCntner = $carSliders = $carCntrls = $carTitle = $carContainer = $carousel_block = '';
+    $carousel_inner_content = $carousel_container = $partner_title = '';
+    $slider_dotl_container = $carSliders = $carCntrls = $carTitle = $carContainer = $carousel_block = '';
     $requesting_slug = basename( get_permalink() );
     
     //Other variable declarations
@@ -80,7 +80,7 @@
                             . '<i class="bi bi-chevron-compact-left icon-left-coverflow"></i>';                          
                     }
                    
-                     $hrtCntner = $controlS = '';
+                     $slider_horizontal_container = $controls = '';
 
                     $count = 0;
 
@@ -99,7 +99,7 @@
                         {
 
                             forEach($you_tube_arr as $slds_rsrcs) {
-                               $dtCntner = $dtCntner . '<span class="dot ' . (($count == 0) ? 'hmecrslatve':'') . '"></span>';
+                               $slider_dotl_container = $slider_dotl_container . '<span class="dot ' . (($count == 0) ? 'hmecrslatve':'') . '"></span>';
                                 if($count < 3){ 
                                     $carSliders = $carSliders . '<div class="slideshow-item-enterprise active-' . ($count + 1).'">';
                                 }
@@ -144,7 +144,7 @@
                         }
                         else{
                             
-                            $dtCntner = $dtCntner . '<span class="dot ' . (($count == 0) ? 'hmecrslatve':'') . '"></span>';
+                            $slider_dotl_container = $slider_dotl_container . '<span class="dot ' . (($count == 0) ? 'hmecrslatve':'') . '"></span>';
 
                             if($count < 3){ 
                                 $carSliders = $carSliders . '<div class="slideshow-item-enterprise active-' . ($count + 1).'">';
@@ -194,7 +194,7 @@
                             . '</div>'
                             . '<div class="line-break"></div>'
                             . '<div class="spi-dot-container-menterprise d-flex justify-content-evenly">'
-                                . $dtCntner
+                                . $slider_dotl_container
                             . '</div>'
                             . '<div class="spi-vertical-container-small">'
                                 . $carCntrls
@@ -222,7 +222,7 @@
                
                 $sldrs_ptr = new WP_Query( $args );
                 //Partner Section Starts                       
-                $partnerTitle = '<h2 class="text-center text-uppercase text-success mt-5"> <strong>' . $post->post_title . '</strong></h2>' ; 
+                $partner_title = '<h2 class="text-center text-uppercase text-success mt-5"> <strong>' . $post->post_title . '</strong></h2>' ; 
                 $post_count = $sldrs_ptr->found_posts;
                 ($sldrs_ptr->found_posts <=3) ? $count = 1: $count=0;
                 
@@ -240,7 +240,7 @@
                                     . '</a>'; 
                         
 
-                            $crslInner = $crslInner
+                            $carousel_inner_content = $carousel_inner_content
                                     . '<div class="coverflow-item-partner coverflow-helper-partner-' . (($count < 5) ? ($count + 1) : "other") . '">'
                                         . $img_block
                                     . '</div>';
@@ -249,13 +249,13 @@
                 }
                 
 
-                $crslContainer = $crslContainer
+                $carousel_container = $carousel_container
                     . '<div class="spi-coverflow-container-partner">'
                         . (($post_count <=3)?
                         '<i class="bi bi-chevron-left icon-left-coverflow-partner-3"></i>' :
                         '<i class="bi bi-chevron-left icon-left-coverflow-partner"></i>')
                         . '<div class="spi-coverflow-wrapper-partner" ' . (($post_count <=3) ? 'data-autoplay="false"' : 'data-autoplay="true"') . '>'
-                            . $crslInner
+                            . $carousel_inner_content
                         . '</div>'
                         . (($post_count <=3)? 
                             '<i class="bi bi-chevron-right icon-right-coverflow-partner-3"></i>' :
@@ -268,11 +268,11 @@
     //Assembling the partner sliders
    wp_reset_postdata(); 
    $contact_block = '<p class="text-center my-5">Please <strong><a href="' . home_url() . '/contact' . '" class="Text-decoration-none text-dark">Contact Us</a></strong> to know more about our ' . get_the_title(get_the_ID()) . '</p>'; 
-   if(!empty($partnerTitle)){
+   if(!empty($partner_title)){
        
         echo $carousel_block
-            . $partnerTitle
-            . $crslContainer    
+            . $partner_title
+            . $carousel_container    
             .$contact_block ;     
    }
    else

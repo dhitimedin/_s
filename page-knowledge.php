@@ -38,7 +38,8 @@ get_header();
                 <?php
                 
                 
-                $carousel_block   = '';        
+                $carousel_block   = '';
+                $carousel_inner_content = $carousel_container = $partner_title = '';   
                 $sldrs_types = new WP_Query(array('post_type' => 'slider', 'post_name__in' => array('resources-slider', 'publications-slider', 'knowledge-partners') , 'posts_per_page' => -1));
                 
                 while($sldrs_types->have_posts()){
@@ -116,7 +117,7 @@ get_header();
                     }
                     else
                     {
-                        $crslInner = $crslContainer = $partnerTitle = '';
+                        $carousel_inner_content = $carousel_container = $partner_title = '';
                         $args = array( 
                             'post_type' => 'attachment', 
                             'post_status' => 'inherit', 
@@ -129,7 +130,7 @@ get_header();
                         $sldrs_ptr = new WP_Query( $args );
 
                         //Partner Section Starts                       
-                        $partnerTitle = '<h2 class="text-center text-uppercase text-success mt-5"> <strong>' . $post->post_title . '</strong></h2>' ; 
+                        $partner_title = '<h2 class="text-center text-uppercase text-success mt-5"> <strong>' . $post->post_title . '</strong></h2>' ; 
                         $post_count = $sldrs_ptr->found_posts;
                         ($sldrs_ptr->found_posts <=3) ? $count = 1: $count=0;
                         
@@ -147,20 +148,20 @@ get_header();
                                     . '</a>'; 
                         
 
-                            $crslInner = $crslInner
+                            $carousel_inner_content = $carousel_inner_content
                                     . '<div class="coverflow-item-partner coverflow-helper-partner-' . (($count < 5) ? ($count + 1) : "other") . '">'
                                         . $img_block
                                     . '</div>';
                           ++$count;  
                         }
 
-                        $crslContainer = $crslContainer
+                        $carousel_container = $carousel_container
                             . '<div class="spi-coverflow-container-partner">'
                                 . (($post_count <=3)?
                                     '<i class="bi bi-chevron-left icon-left-coverflow-partner-3"></i>' :
                                     '<i class="bi bi-chevron-left icon-left-coverflow-partner"></i>')
                                 . '<div class="spi-coverflow-wrapper-partner" ' . (($post_count <=3) ? 'data-autoplay="false"' : 'data-autoplay="true"') . '>'
-                                    . $crslInner
+                                    . $carousel_inner_content
                                 . '</div>'
                                 . (($post_count <=3)? 
                                     '<i class="bi bi-chevron-right icon-right-coverflow-partner-3"></i>' :
@@ -173,8 +174,8 @@ get_header();
                 
                 wp_reset_postdata();   
                 echo $carousel_block
-                    . $partnerTitle
-                    . $crslContainer                    
+                    . $partner_title
+                    . $carousel_container                    
                     . '<p class="text-center my-5">Please <strong><a href="' . home_url() . '/contact' . '" class="Text-decoration-none text-dark">Contact Us</a></strong> to know more about our ' . get_the_title(get_the_ID()) . '</p>';                
                 
 

@@ -19,7 +19,7 @@ get_header();
             
             <?php
             
-                $hrtCntnerS = $dtCntnerS = $controlS = $imgOvrlS = $imgBck = '';
+                $horizontal_container = $dot_container = $controls = $image_overlay = $background_image = '';
             
                 $query_allposts = new WP_Query(array('post_type' => 'slider', 'post_name__in' => array('home-page-slider','publications-slider', 'background') , 'posts_per_page' => -1));
                 while ( $query_allposts->have_posts() ) {
@@ -28,8 +28,8 @@ get_header();
                     switch ($post->post_title){
                         case "Home Page Slider":
                             {
-                                $vrtCntner = $hrtCntner = $dtCntner = $vrtControls = 
-                                    $imgOvrlLG = $imgOvrlSM = '';                            
+                                $slider_vertical_container = $slider_horizontal_container = $slider_dotl_container = $vertical_controls = 
+                                    $image_overlay_big_screen = $image_overlay_small = '';                            
                                 
                                 $args = array( 
                                     'post_type' => 'attachment', 
@@ -45,25 +45,25 @@ get_header();
                                     $query_image_hps->the_post();
                                     
 
-                                    $dtCntner = $dtCntner . '<span class="dot ' . (((int)($query_image_hps->current_post) == 0) ? 'hmecrslatve':'') . '"></span>';
+                                    $slider_dotl_container = $slider_dotl_container . '<span class="dot ' . (((int)($query_image_hps->current_post) == 0) ? 'hmecrslatve':'') . '"></span>';
 
                                     if( ((int)($query_image_hps->current_post)) < 3){ 
-                                        $vrtCntner = $vrtCntner . '<div class="animatebox animatebox-' . ((int)($query_image_hps->current_post) + 1).'">';
-                                        $hrtCntner = $hrtCntner . '<div class="slideshow-item active-' . ((int)($query_image_hps->current_post) + 1).'">';
+                                        $slider_vertical_container = $slider_vertical_container . '<div class="animatebox animatebox-' . ((int)($query_image_hps->current_post) + 1).'">';
+                                        $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-' . ((int)($query_image_hps->current_post) + 1).'">';
                                     }
                                     elseif ( ((int)($query_image_hps->current_post)) >= ( ((int)($query_image_hps->post_count)) - 2)) {
-                                        $vrtCntner = $vrtCntner . '<div class="animatebox animatebox-' . (6 - (((int)($query_image_hps->post_count)) - ((int)($query_image_hps->current_post)) )) . '">';
-                                        $hrtCntner = $hrtCntner . '<div class="slideshow-item active-' . (6 - (((int)($query_image_hps->post_count)) -  ((int)($query_image_hps->current_post)) )) . '">';
+                                        $slider_vertical_container = $slider_vertical_container . '<div class="animatebox animatebox-' . (6 - (((int)($query_image_hps->post_count)) - ((int)($query_image_hps->current_post)) )) . '">';
+                                        $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-' . (6 - (((int)($query_image_hps->post_count)) -  ((int)($query_image_hps->current_post)) )) . '">';
                                     }
                                     else {
-                                        $vrtCntner = $vrtCntner . '<div class="animatebox animate-other">';
-                                        $hrtCntner = $hrtCntner . '<div class="slideshow-item active-other">';
+                                        $slider_vertical_container = $slider_vertical_container . '<div class="animatebox animate-other">';
+                                        $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-other">';
                                     }    
-                                        $vrtCntner = $vrtCntner . '<span style="align-self: center; padding: 1vw;">' . $post->post_title . '</span>'
+                                        $slider_vertical_container = $slider_vertical_container . '<span style="align-self: center; padding: 1vw;">' . $post->post_title . '</span>'
                                                 . '</div>';
 
                                         
-                                    $hrtCntner =  (empty($post->post_content)? $hrtCntner: $hrtCntner . '<a href="' . $post->post_content . '"  target="_blank" >')
+                                    $slider_horizontal_container =  (empty($post->post_content)? $slider_horizontal_container: $slider_horizontal_container . '<a href="' . $post->post_content . '"  target="_blank" >')
                                         . '<picture>'    
                                             . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 1400px)">'
                                             . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 769px)">'
@@ -76,17 +76,17 @@ get_header();
                                 }
                                 
 
-                                $vrtControls = '<i class="bi bi-chevron-compact-up icon-top"></i>'
+                                $vertical_controls = '<i class="bi bi-chevron-compact-up icon-top"></i>'
                                     . '<i class="bi bi-chevron-compact-left icon-left"></i>'
                                     . '<i class="bi bi-chevron-compact-down icon-bottom"></i>'
                                     . '<i class="bi bi-chevron-compact-right icon-right"></i>' ; 
 
-                                $imgOvrlLG =  '<h1 class="home-card-header">Em<span style="color:#ffe500">POWERING</span> Rural'
+                                $image_overlay_big_screen =  '<h1 class="home-card-header">Em<span style="color:#ffe500">POWERING</span> Rural'
                                         . '<div class="home-imgovrly-txtcntnr"><span class="home-imgovrl-pill"></span>Communities</div>' 
                                         . '& Transforming Lives</h1>'
                                     . '<p class="home-card-text">Through access to reliable and quality electricity</p>';
 
-                                $imgOvrlSM = ''
+                                $image_overlay_small = ''
                                         . '<h1 class="home-card-header"><strong>EmPOWERING Rural</strong><br/>'
                                         . '<strong>Communities</strong><br/>'
                                         . '<strong>& Transforming Lives</strong></h1>'
@@ -95,20 +95,20 @@ get_header();
                                 echo ''
                                     . ' <div class="spi-slider-container">'
                                         . '<div class="spi-vertical-container">'
-                                            . $vrtCntner
-                                            . $vrtControls
+                                            . $slider_vertical_container
+                                            . $vertical_controls
                                         . '</div>'
                                         . '<div class="spi-slideshow-wrapper">'
-                                            . $hrtCntner
+                                            . $slider_horizontal_container
                                         . '</div>'
                                         . '<div class="spi-dot-container">'
-                                            . $dtCntner
+                                            . $slider_dotl_container
                                         . '</div>'
                                         . '<div class="home-img-overlay d-none d-md-block">'
-                                            . $imgOvrlLG
+                                            . $image_overlay_big_screen
                                         . '</div>'
                                         . '<div class="home-img-overlay d-md-none">'
-                                            . $imgOvrlSM
+                                            . $image_overlay_small
                                         . '</div>'
                                     . '</div>'; 
 
@@ -147,19 +147,19 @@ get_header();
                                 $arr_length = count( $img_arr );
                                 foreach( $img_arr as $key=>$dsp_obj ) {
 
-                                    $dtCntnerS = $dtCntnerS . '<span class="dot ' . ( ( $count == 0 ) ? 'hmecrslatve':'') . '"></span>';
+                                    $dot_container = $dot_container . '<span class="dot ' . ( ( $count == 0 ) ? 'hmecrslatve':'') . '"></span>';
 
                                      if( ( $count ) < 3){
-                                         $hrtCntnerS = $hrtCntnerS . '<div class="slideshow-item-small active-' . ( $count + 1 ).'">';
+                                         $horizontal_container = $horizontal_container . '<div class="slideshow-item-small active-' . ( $count + 1 ).'">';
                                      }
                                      elseif ( $count >= ( $arr_length  - 2 ) ) {
-                                         $hrtCntnerS = $hrtCntnerS . '<div class="slideshow-item-small active-' . ( 6 - ( $arr_length - $count ) ) . '">';
+                                         $horizontal_container = $horizontal_container . '<div class="slideshow-item-small active-' . ( 6 - ( $arr_length - $count ) ) . '">';
                                      }
                                      else {
-                                         $hrtCntnerS = $hrtCntnerS . '<div class="slideshow-item-small active-other">';
+                                         $horizontal_container = $horizontal_container . '<div class="slideshow-item-small active-other">';
                                      }
 
-                                    $hrtCntnerS = $hrtCntnerS
+                                    $horizontal_container = $horizontal_container
                                          . '<a href="' . ($att_arr[$key]->guid) . '" download>'
                                             . '<picture>'
                                                  . '<source srcset="' . $dsp_obj->guid . '" media="(min-width: 1400px)">'
@@ -173,7 +173,7 @@ get_header();
                                    $count++;
                                 }
                                 $count = 0;
-                                $controlS = $controlS . '<i class="bi bi-chevron-compact-left icon-left"></i>'
+                                $controls = $controls . '<i class="bi bi-chevron-compact-left icon-left"></i>'
                                        .'<i class="bi bi-chevron-compact-right icon-right"></i>';                                                             
                                 
                             };
@@ -196,20 +196,21 @@ get_header();
                                     
                                     
                                     if($post->post_title == "Knowledge"){
-                                        $imgBck = $imgBck
+                                        $background_image = $background_image
                                             . '<picture class="d-none d-md-block">'
                                                 . '<source srcset="' . $post->guid . '" media="(min-width: 1400px)">'
                                                 . '<source srcset="' . $post->guid . '" media="(min-width: 769px)">'
                                                 . '<source srcset="' . $post->guid . '" media="(min-width: 577px)">'
                                                 . '<img srcset="' . $post->guid . '" alt="responsive image" class="card-img img-fluid" loading="lazy">'
                                             . '</picture>' ;                                             
-                                        $imgOvrlS = $imgOvrlS
+                                        $image_overlay = $image_overlay
                                                 . '<h2 class="home-card-header mb-2"><strong>' . $post->post_title . '</strong></h2>'
                                                 . '<p class="home-card-text mb-3">' . $post->post_excerpt . '</p>'
                                                 . '<div class="d-md-inline d-flex justify-content-center m-0 p-0"><div class="pill-button"><a href="' . get_permalink( get_page_by_path( 'knowledge' ) ) . '" >Learn More</a></div></div>';                                        
                                     
                                         
                                     }
+
                                 }
                                 
                             }
@@ -234,24 +235,24 @@ get_header();
                     $query_child->the_post();
                     get_template_part( 'template-parts/content', 'sumup' );
                 }
-                 wp_reset_postdata();       
+                 wp_reset_postdata();      
                 
             echo ''
                 . '<div class="home-knowledge-container">'
-                    . $imgBck
+                    . $background_image
                     . '<div class="spi-slider-container-small">'
                         . '<div class="spi-slideshow-wrapper-small">'
-                            . $hrtCntnerS
+                            . $horizontal_container
                         . '</div>'
                         . '<div class="spi-dot-container-small">'
-                            . $dtCntnerS
+                            . $dot_container
                         . '</div>'
                         . '<div class="spi-vertical-container-small">'
-                            . $controlS
+                            . $controls
                         . '</div>'
                     . '</div>'
                     . '<div class="home-img-overlay-small-left">'
-                        . $imgOvrlS
+                        . $image_overlay
                     . '</div>'
                 . '</div>';
             

@@ -452,15 +452,15 @@ function add_gtm_to_body( $classes ) {
 
     $block = <<<EOD
 
-    <!-- Google Tag Manager (noscript) -->
+        <!-- Google Tag Manager (noscript) -->
 
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WRH3HJJ"
-                height="0" width="0" style="display:none; visibility:hidden;">
-        </iframe>
-    </noscript>
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WRH3HJJ"
+                    height="0" width="0" style="display:none; visibility:hidden;">
+            </iframe>
+        </noscript>
 
-    <!-- End Google Tag Manager (noscript) -->
+        <!-- End Google Tag Manager (noscript) -->
 
     EOD;
 
@@ -481,11 +481,11 @@ function spi_google_verification_code() {
 
     $google_head_script = <<<EOD
 
-    <!-- Google Verification Code -->
+        <!-- Google Verification Code -->
 
-    <meta name="google-site-verification" content="BcWl78fFNUdXMaBdARuCwklZciNPFJTJFPFoLgX22xQ" />
+        <meta name="google-site-verification" content="BcWl78fFNUdXMaBdARuCwklZciNPFJTJFPFoLgX22xQ" />
 
-    <!-- End Google Verification Code -->
+        <!-- End Google Verification Code -->
 
     EOD;
 
