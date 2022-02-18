@@ -220,14 +220,14 @@
                     'post_parent' => $post->ID 
                 );
                
-                $sldrs_ptr = new WP_Query( $args );
+                $partner_slider_content = new WP_Query( $args );
                 //Partner Section Starts                       
                 $partner_title = '<h2 class="text-center text-uppercase text-success mt-5"> <strong>' . $post->post_title . '</strong></h2>' ; 
-                $post_count = $sldrs_ptr->found_posts;
-                ($sldrs_ptr->found_posts <=3) ? $count = 1: $count=0;
+                $post_count = $partner_slider_content->found_posts;
+                ($partner_slider_content->found_posts <=3) ? $count = 1: $count=0;
                 
-                while($sldrs_ptr->have_posts()){
-                    $sldrs_ptr->the_post();
+                while($partner_slider_content->have_posts()){
+                    $partner_slider_content->the_post();
                     
                         $img_block = ''
                                     .'<a class="spi-link-decoration" href="' . $post->post_title . '" target="_blank">'
