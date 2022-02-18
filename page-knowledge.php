@@ -112,7 +112,8 @@ get_header();
                 
             }
             else {
-                $carousel_inner_content = $carousel_container = $partner_title = '';
+
+                $carousel_inner_content = $carousel_container = $partner_title = $img_block = '';
                 $args = array( 
                         'post_type'         => 'attachment', 
                         'post_status'       => 'inherit', 
@@ -136,14 +137,14 @@ get_header();
                 while ( $partner_slider_content->have_posts() ) {
                     $partner_slider_content->the_post();
                     
-                $img_block .= "<a class='spi-link-decoration' href='$post->post_title' target='_blank'>
-                                <picture>
-                                    <source srcset='" . wp_get_attachment_url( $post->ID ) . "' media='(min-width: 1400px)'>
-                                    <source srcset='" . wp_get_attachment_url($post->ID) . "' media='(min-width: 769px)'>
-                                    <source srcset='" . wp_get_attachment_url($post->ID) . "' media='(min-width: 577px)'>
-                                    <img srcset='" . wp_get_attachment_url($post->ID) . "' class='d-block mx-auto' alt='responsive image' loading='lazy'>
-                                </picture>
-                            </a>"; 
+                    $img_block .= "<a class='spi-link-decoration' href='$post->post_title' target='_blank'>
+                                    <picture>
+                                        <source srcset='" . wp_get_attachment_url( $post->ID ) . "' media='(min-width: 1400px)'>
+                                        <source srcset='" . wp_get_attachment_url( $post->ID ) . "' media='(min-width: 769px)'>
+                                        <source srcset='" . wp_get_attachment_url( $post->ID ) . "' media='(min-width: 577px)'>
+                                        <img srcset='" . wp_get_attachment_url( $post->ID ) . "' class='d-block mx-auto' alt='responsive image' loading='lazy'>
+                                    </picture>
+                                </a>"; 
                 
 
                     $carousel_inner_content .= "<div class='coverflow-item-partner coverflow-helper-partner-" . (($count < 5) ? ($count + 1) : 'other') . "'>
@@ -169,12 +170,11 @@ get_header();
         }
         
         wp_reset_postdata();   
-        echo $carousel_block
-            . $partner_title
-            . $carousel_container                    
-            . '<p class="text-center my-5">Please <strong><a href="' . home_url() . '/contact' . '" class="Text-decoration-none text-dark">Contact Us</a></strong> to know more about our ' . get_the_title(get_the_ID()) . '</p>';                
+        echo "{ $carousel_block } { $partner_title } { $carousel_container }                   
+            <p class='text-center my-5'>Please<strong><a href='" . home_url() . '/contact' 
+            . "' class='text-decoration-none text-dark'> Contact Us</a></strong> to know more about our " 
+            .  get_the_title( get_the_ID() ) . "</p>";                
         
-
         ?>
         
         <!-- Partner Section Ends -->
