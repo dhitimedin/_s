@@ -35,7 +35,7 @@ get_header();
         
         
         $carousel_block   = '';
-        $carousel_inner_content = $carousel_container = $partner_title = '';   
+        $carousel_inner_content = $partner_carousel_container = $partner_title = '';   
         $sldrs_types =  new WP_Query(
                         array(
                             'post_type'         => 'slider',
@@ -113,7 +113,7 @@ get_header();
             }
             else {
 
-                $carousel_inner_content = $carousel_container = $partner_title = $img_block = '';
+                $carousel_inner_content = $partner_carousel_container = $partner_title = $img_block = '';
                 $args = array( 
                         'post_type'         => 'attachment', 
                         'post_status'       => 'inherit', 
@@ -153,7 +153,7 @@ get_header();
                     ++$count;  
                 }
 
-                $carousel_container .= "<div class='spi-coverflow-container-partner'>"
+                $partner_carousel_container .= "<div class='spi-coverflow-container-partner'>"
                         . ( ( $post_count <=3 ) ?
                             '<i class="bi bi-chevron-left icon-left-coverflow-partner-3"></i>' :
                             '<i class="bi bi-chevron-left icon-left-coverflow-partner"></i>' )
@@ -170,7 +170,7 @@ get_header();
         }
         
         wp_reset_postdata();   
-        echo "{ $carousel_block } { $partner_title } { $carousel_container }                   
+        echo "{ $carousel_block } { $partner_title } { $partner_carousel_container }                   
             <p class='text-center my-5'>Please<strong><a href='" . home_url() . '/contact' 
             . "' class='text-decoration-none text-dark'> Contact Us</a></strong> to know more about our " 
             .  get_the_title( get_the_ID() ) . "</p>";                
