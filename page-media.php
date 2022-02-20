@@ -18,71 +18,78 @@ get_header();
 <main id="primary" class="site-main container-fluid m-0 p-0">
 
     <?php
-        $query_allposts = new WP_Query(array('post_type' => 'slider', 'post_name__in' => array('media-page-slider') , 'posts_per_page' => -1));
+        $query_allposts = new WP_Query( array( 
+                            'post_type'         => 'slider',
+                            'post_name__in'     => array( 'media-page-slider' ) ,
+                            'posts_per_page'    => -1
+                        )
+                    );
         
-        while($query_allposts->have_posts()){
+        while ( $query_allposts->have_posts() ) {
             $query_allposts->the_post();
 
             $args = array( 
-                'post_type' => 'attachment', 
-                'post_status' => 'inherit', 
-                'post_mime_type' => 'image', 
-                'posts_per_page' => -1, 
-                'order'   => 'ASC', 
-                'post_parent' => $post->ID 
+                'post_type'         => 'attachment', 
+                'post_status'       => 'inherit', 
+                'post_mime_type'    => 'image', 
+                'posts_per_page'    => -1, 
+                'order'             => 'ASC', 
+                'post_parent'       => $post->ID 
             );
             
             $query_slds = new WP_Query( $args );
             $slider_horizontal_container = $slider_dotl_container = $capBlock= '';
             
-            while($query_slds->have_posts()){
+            while ( $query_slds->have_posts() ) {
                 $query_slds->the_post();
 
-                if( ((int)($query_slds->current_post)) < 3){ 
-                    $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-' . (((int)($query_slds->current_post)) + 1).'">';
+                if( intval( $query_slds->current_post ) < 3 ) { 
+                    $slider_horizontal_container .= '<div class="slideshow-item active-' 
+                                . ( intval( $query_slds->current_post ) + 1 ) . '">';
                 }
-                elseif ( ((int)($query_slds->current_post)) >= ( ((int)($query_slds->post_count)) - 2)) {
-                    $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-' . (6 - ( ((int)($query_slds->post_count)) - ((int)($query_slds->current_post)) )) . '">';
+                elseif ( intval( $query_slds->current_post ) >= ( intval($query_slds->post_count) - 2 ) ) {
+                    $slider_horizontal_container .= '<div class="slideshow-item active-' 
+                                . ( 6 - ( intval( $query_slds->post_count ) - intval( $query_slds->current_post ) ) ) . '">';
                 }
                 else {
-                    $slider_horizontal_container = $slider_horizontal_container . '<div class="slideshow-item active-other">';
+                    $slider_horizontal_container .= '<div class="slideshow-item active-other">';
                 }
-                $slider_horizontal_container = $slider_horizontal_container
-                       . '<picture>'
-                            . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 1400px)">'
-                            . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 769px)">'
-                            . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 577px)">'
-                            . '<img srcset="' . wp_get_attachment_url($post->ID) . '" alt="responsive image" class="d-block img-fluid" loading="lazy" style="width: 100% !important" />'
-                        . '</picture>'                     
-                . '</div>';
 
-               $capBlock = $capBlock . (( ((int)($query_slds->current_post)) == 0) ? '<div class="caption-item caption-active">': '<div class="caption-item">');
+                $slider_horizontal_container .= '<picture>
+                            <source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 1400px)">
+                            <source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 769px)">
+                            <source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 577px)">
+                            <img srcset="' . wp_get_attachment_url($post->ID) . '" alt="responsive image" class="d-block img-fluid" loading="lazy" style="width: 100% !important" />
+                        </picture>                     
+                </div>';
 
-               $capBlock = $capBlock . ((empty($post->post_content)) ? 
-                   '<div class="spi-accordion-media">' . $post->post_excerpt . '</div><div class="spi-panel-media"> </div>':
-                   '<div class="spi-accordion-media">' . $post->post_excerpt . '<span class="caption-dot">...</span></div>' 
-                   . '<div class="spi-panel-media">' . $post->post_content .  '</div>');
-               $capBlock = $capBlock . '</div>';
+               $capBlock .= ( intval( $query_slds->current_post ) == 0 ) ? 
+                                    '<div class="caption-item caption-active">': '<div class="caption-item">';
 
-               $slider_dotl_container = $slider_dotl_container . '<span class="dot ' . (( ((int)($query_slds->current_post)) == 0) ? 'hmecrslatve':'') . '"></span>';
+               $capBlock .= empty( $post->post_content ) ? 
+                   "<div class='spi-accordion-media'>$post->post_excerpt</div><div class='spi-panel-media'></div>" :
+                   "<div class='spi-accordion-media'>$post->post_excerpt<span class='caption-dot'>...</span></div> 
+                   <div class='spi-panel-media'>$post->post_content</div>";
+               $capBlock .= '</div>';
+
+               $slider_dotl_container .= '<span class="dot ' . ( ( intval($query_slds->current_post) == 0 ) ? 'hmecrslatve' : '' ) . '"></span>';
                
                 
             }
             
         }
         
-        echo ''
-            . '<div class="spi-slider-container-caption">'
-                . '<div class="spi-slideshow-wrapper">'
-                    . $slider_horizontal_container
-                . '</div>'
-                . '<div class="spi-caption-block">'
-                    . $capBlock
-                . '</div>'
-                . '<div class="spi-dot-container">'
-                    . $slider_dotl_container
-                . '</div>'
-            . '</div>';
+        echo "<div class='spi-slider-container-caption'>
+                <div class='spi-slideshow-wrapper'>
+                    $slider_horizontal_container
+                </div>
+                <div class='spi-caption-block'>
+                    $capBlock
+                </div>
+                <div class='spi-dot-container'>
+                    $slider_dotl_container
+                </div>
+            </div>";
           
         wp_reset_postdata();
 
@@ -93,42 +100,40 @@ get_header();
         $header_video =  '<section id="video-coverage" class="spi-card-header"><p id="video">Video</p></section>';
 
         // The Query for Video Section
-        $query1 = new WP_Query( array( 'category_name' => 'video' ) );
-        $last_count = floor(($query1->post_count)/3);
+        $query1     = new WP_Query( array( 'category_name' => 'video' ) );
+        $last_count = floor( ( $query1->post_count ) / 3 );
+        //Initialising the flags
+        $count      = 0;         
         
         $crslIndctrs = $crslCntrls = $carousel_inner_content = '';
         
         
-        $crslCntrls = $crslCntrls
-            . '<section class="icons-card">'
+        $crslCntrls .= '<section class="icons-card">'
                 . '<i class="bi bi-chevron-left icon-left-coverflow-card"></i>'
                 . '<i class="bi bi-chevron-right icon-right-coverflow-card"></i>'
             . '</section>';              
 
-        //Initialising the flags
-        $count = 0; 
 
         // The Loop
         while ( $query1->have_posts() ) {
             $query1->the_post();
             
-            $content = get_the_content();
+            $content    = get_the_content();
             //echo htmlentities(var_dump($content));
-            $blocks = parse_blocks( $content );
+            $blocks     = parse_blocks( $content );
                         
-            $carousel_inner_content = $carousel_inner_content
-                . '<article class="coverflow-item-card coverflow-helper-card-' . (($count < 5) ? ($count + 1) : "other") . '" >'
+            $carousel_inner_content .= '<article class="coverflow-item-card coverflow-helper-card-' 
+                    . ( ( $count < 5 ) ? ( $count + 1 ) : "other" ) . '" >'
                     . '<div class="spi-media-thumbnail">';
                         foreach ( $blocks as $block ) {
-                           $output = simplexml_load_string( $block['innerHTML'] );
+                           $output = simplexml_load_string( $block[ 'innerHTML' ] );
                         
                             // $carousel_inner_content = $carousel_inner_content . $block['innerHTML']; 
-                            $carousel_inner_content = $carousel_inner_content 
-                                . '<iframe src="' . $output->attributes()->{'src'} . '" class="spi-responsive-iframe-media" frameborder="0" allowfullscreen="true" loading="lazy"></iframe>';
+                            $carousel_inner_content .= '<iframe src="' . $output->attributes()->{'src'} 
+                                    . '" class="spi-responsive-iframe-media" frameborder="0" allowfullscreen="true" loading="lazy"></iframe>';
 
                         }                         
-                $carousel_inner_content = $carousel_inner_content         
-                    . '</div>'
+                $carousel_inner_content .= '</div>'
                     . '<div class="spi-card-content">'
                     . '</div>'
                     . '<footer class="spi-footer-card">'
@@ -141,14 +146,13 @@ get_header();
                 ++$count;
         }
         
-        echo ''
-            . '<div class="spi-coverflow-container-card">'
-                . $header_video
-                . '<section class="spi-coverflow-wrapper-cards" data-autoplay="false">'
-                    . $carousel_inner_content
-                . '</section>'
-                . $crslCntrls                
-            . '</div>';
+        echo "<div class='spi-coverflow-container-card'>
+                $header_video
+                <section class='spi-coverflow-wrapper-cards' data-autoplay='false'>
+                    $carousel_inner_content
+                </section>
+                $crslCntrls                
+            </div>";
 
                 
                                     
@@ -169,40 +173,39 @@ get_header();
         $header_media =  '<section id="media-coverage" class="spi-card-header"><p id="media">Media Coverage</p></section>';
 
    
-        $query2 = new WP_Query( array( 'category_name' => 'news-events' ) );
-        $last_count = floor(($query2->post_count)/3);
+        $query2     = new WP_Query( array( 'category_name' => 'news-events' ) );
+        $last_count = floor( ( $query2->post_count ) / 3 );
+        //Initialising the flags
+        $count      = 0;        
         
         $crslIndctrsM = $crslCntrlsM = $carousel_inner_contentM = '';
         
 
-        $crslCntrlsM = $crslCntrlsM
-            . '<section class="icons-card">'
+        $crslCntrlsM .= '<section class="icons-card">'
                 . '<i class="bi bi-chevron-left icon-left-coverflow-card"></i>'
                 . '<i class="bi bi-chevron-right icon-right-coverflow-card"></i>'
             . '</section>'; 
         
         
-        //Initialising the flags
-        $count =0;
-
         // The Loop
         while ( $query2->have_posts() ) {
             $query2->the_post();
             $label_title = $label = '';
-            if (has_post_thumbnail()){
-                $thumb_id = get_post_thumbnail_id();
-                $thumb_url_array = wp_get_attachment_image_src($thumb_id, 'thumbnail-size', true);
-                $label = $thumb_url_array[0];
-                $label_title = get_post($thumb_id)->post_title;
+
+            if ( has_post_thumbnail() ) {
+                $thumb_id           = get_post_thumbnail_id();
+                $thumb_url_array    = wp_get_attachment_image_src( $thumb_id, 'thumbnail-size', true );
+                $label              = $thumb_url_array[ 0 ];
+                $label_title        = get_post( $thumb_id )->post_title;
             }
-            elseif (function_exists('the_custom_logo')) {
-                $custom_logo_id = get_theme_mod('custom_logo');
-                $logo = wp_get_attachment_image_src($custom_logo_id);
-                $label = $logo[0];
+            elseif ( function_exists( 'the_custom_logo' ) ) {
+                $custom_logo_id     = get_theme_mod( 'custom_logo' );
+                $logo               = wp_get_attachment_image_src( $custom_logo_id );
+                $label              = $logo[ 0 ];
             }
             
-            $carousel_inner_contentM = $carousel_inner_contentM
-                . '<article class="coverflow-item-card coverflow-helper-card-' . (($count < 5) ? ($count + 1) : "other") . '" >'
+            $carousel_inner_contentM .= '<article class="coverflow-item-card coverflow-helper-card-' 
+                . (($count < 5) ? ($count + 1) : "other") . '" >'
                     . '<div class="spi-media-thumbnail">'
                         . '<picture>'
                             . '<source srcset="' . $label . '" media="(min-width: 1400px)">'
@@ -226,14 +229,13 @@ get_header();
         } // End of While loop for Video Content
         
         
-        echo ''
-            . '<div class="spi-coverflow-container-card">'
-                . $header_media
-                . '<section class="spi-coverflow-wrapper-cards" data-autoplay="false">'
-                    . $carousel_inner_contentM
-                . '</section>'
-                . $crslCntrlsM                
-            . '</div>';        
+        echo "<div class='spi-coverflow-container-card'>
+                $header_media
+                <section class='spi-coverflow-wrapper-cards' data-autoplay='false'>
+                    $carousel_inner_contentM
+                </section>
+                $crslCntrlsM                
+            </div>";        
 
 
         $last_count = 0;
