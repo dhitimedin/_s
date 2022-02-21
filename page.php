@@ -15,7 +15,7 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+	<main id="primary" class="site-main container-fluid m-0 p-0">
 
 		<?php
 		while ( have_posts() ) :
@@ -29,6 +29,17 @@ get_header();
 			endif;
 
 		endwhile; // End of the loop.
+		$page_list = array(
+			'enhanced-rural-revenue-franchise-e-rrf-program',
+			'energy-service-franchise-model',
+			'micro-enterprise-development',
+			'mini-grid-model',
+			'innovation'
+		);
+		if ( in_array ( basename( get_permalink() ), $page_list ) ) {
+			wp_reset_postdata();
+			get_template_part( 'template-parts/content', 'partner' );
+		}
 		?>
 
 	</main><!-- #main -->

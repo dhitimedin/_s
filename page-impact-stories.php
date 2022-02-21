@@ -17,46 +17,54 @@ get_header();
 
 	<main id="primary" class="site-main">
 		<?php
-		if ( have_posts() ) {
-                    the_title( '<h1 class="spi-impact-title">', '</h1>' );                    
+		if ( have_posts() ) :
+            the_title( '<h1 class="spi-impact-title">', '</h1>' );                    
 
-                    $sldrs_types = new WP_Query(array('post_type' => 'slider', 'post_name__in' => array('impactstories') , 'posts_per_page' => -1));
+            $sldrs_types = new WP_Query(array(
+                            'post_type'         => 'slider',
+                            'post_name__in'     => array('impactstories') ,
+                            'posts_per_page'    => -1
+                        )
+                    );
                     
                     
-                    while($sldrs_types->have_posts()){
-                        $sldrs_types->the_post();
-                        
+            while ( $sldrs_types->have_posts() ) :
+                $sldrs_types->the_post();
 
-                        $you_tube_arr = get_post_custom_values( 'youtube', $post->ID);
-                        $title_arr = get_post_custom_values( 'title', $post->ID);
-                        $description_arr = get_post_custom_values( 'description', $post->ID);
-                  
-                        echo '<div class="spi-impactstories-grid-container">'; 
-                        $count = 0;
-                        if($you_tube_arr){
-                            forEach($you_tube_arr as $sldr_rsrcs){
-                                
-                                echo ''
-                                    . '<div class="spi-impact-figure">'
-                                        . '<div class="spi-impact-figure-video">'
-                                        . '<iframe src="' . $sldr_rsrcs . '" frameborder="0" allowfullscreen="true" height="100%" width="100%"></iframe>'
-                                        . '</div>'
-                                        . '<p class="spi-impact-header">' . $title_arr[$count] . '</p>'
-                                        . '<p class="spi-impact-decription">' . $description_arr[$count] . '</p>'
-                                    . '</div>';
-                                $count++;           
-                            }
-                        }    
+                $impact_contents    = get_post_custom( $post->ID );
+                
+                $you_tube_arr       = $impact_contents[ 'youtube' ];
+                $title_arr          = $impact_contents[ 'title' ];
+                $description_arr    = $impact_contents[ 'description' ];
+                $count              = 0;
+            ?>
+                <div class="spi-impactstories-grid-container"> 
+            <?php
+                
+                if ( $you_tube_arr ) :
+                    forEach ( $you_tube_arr as $sldr_rsrcs ) :
+                ?>
                         
-                        echo '</div>'; 
-                        
-                    }
-                }
-		else 
-                {
+                        <div class="spi-impact-figure">
+                            <div class="spi-impact-figure-video">
+                                <iframe src="<?php echo $sldr_rsrcs ?>" frameborder="0" allowfullscreen="true" height="100%" width="100%">
+                                </iframe>
+                            </div>
+                            <p class="spi-impact-header"><?php echo $title_arr[$count] ?></p>
+                            <p class="spi-impact-decription"><?php echo $description_arr[$count] ?></p>
+                        </div>
+                <?php
+                        $count++;           
+                    endforeach;
+                endif;    
+                ?>
+                </div> 
+                
+            <?php endwhile;
+		else :
 			get_template_part( 'template-parts/content', 'none' );
+        endif;
 
-                }
 		?>
 
 	</main><!-- #main -->

@@ -170,7 +170,7 @@ get_header();
         }
         
         wp_reset_postdata();   
-        echo "{ $carousel_block } { $partner_title } { $partner_carousel_container }                   
+        echo "{$carousel_block}{$partner_title}{$partner_carousel_container}                   
             <p class='text-center my-5'>Please<strong><a href='" . home_url() . '/contact' 
             . "' class='text-decoration-none text-dark'> Contact Us</a></strong> to know more about our " 
             .  get_the_title( get_the_ID() ) . "</p>";                
