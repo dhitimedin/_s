@@ -53,39 +53,35 @@ get_header();
                                                     . ( ( intval( $query_image_hps->current_post ) == 0 ) ? 'hmecrslatve' : '' ) 
                                                     . '"></span>';
 
-                            if ( intval ( $query_image_hps->current_post ) < 3 ) { 
-                                $slider_vertical_container .= '<div class="animatebox animatebox-' . ( intval ( $query_image_hps->current_post ) + 1 ) . '">';
-                                $slider_horizontal_container .= '<div class="slideshow-item active-' . ( intval ( $query_image_hps->current_post ) + 1 ).'">';
+                            if ( intval ( $query_image_hps->current_post ) < 3 ) {
+                                $css_class_identifier = intval ( $query_image_hps->current_post ) + 1; 
+                                $slider_vertical_container      .= "<div class='animatebox animatebox-$css_class_identifier'>";
+                                $slider_horizontal_container    .= "<div class='slideshow-item active-$css_class_identifier'>";
                             }
                             elseif ( ( intval( $query_image_hps->current_post ) ) >= ( intval ( $query_image_hps->post_count )  - 2) ) {
-                                $slider_vertical_container .= '<div class="animatebox animatebox-' 
-                                                            . ( 
-                                                                6 - ( ( intval ( $query_image_hps->post_count ) ) - 
-                                                                intval ( $query_image_hps->current_post ) ) 
-                                                              ) . '">';
-                                $slider_horizontal_container .= '<div class="slideshow-item active-' 
-                                                            . (
-                                                                6 - ( intval ( $query_image_hps->post_count ) -  
-                                                                intval ( $query_image_hps->current_post ) )
-                                                            ) . '">';
+                                $css_class_identifier = 6 - 
+                                    ( intval ( $query_image_hps->post_count ) - intval ( $query_image_hps->current_post ) );
+                                $slider_vertical_container .= "<div class='animatebox animatebox-$css_class_identifier'>";
+                                $slider_horizontal_container .= "<div class='slideshow-item active-$css_class_identifier'>";
                             }
                             else {
                                 $slider_vertical_container .= '<div class="animatebox animate-other">';
                                 $slider_horizontal_container .= '<div class="slideshow-item active-other">';
-                            }    
-                                $slider_vertical_container .= "<span style='align-self: center; padding: 1vw;'>
-                                                                    $post->post_title
-                                                                </span>
-                                                            </div>";
+                            }
+
+                            $slider_vertical_container .= "<span style='align-self: center; padding: 1vw;'>
+                                                                $post->post_title
+                                                            </span>
+                                                        </div>";
 
                                 
                             $slider_horizontal_container .=  ( empty ( $post->post_content ) ? '' : 
                                             '<a href="' . $post->post_content . '"  target="_blank" >')
                                 . '<picture>'    
-                                    . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 1400px)">'
-                                    . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 769px)">'
-                                    . '<source srcset="' . wp_get_attachment_url($post->ID) . '" media="(min-width: 577px)">'
-                                    . '<img srcset="' . wp_get_attachment_url($post->ID) . '" alt="responsive image" class="d-block img-fluid" loading="lazy">'
+                                    . '<source srcset="' . wp_get_attachment_url( $post->ID ) . '" media="(min-width: 1400px)">'
+                                    . '<source srcset="' . wp_get_attachment_url( $post->ID ) . '" media="(min-width: 769px)">'
+                                    . '<source srcset="' . wp_get_attachment_url( $post->ID ) . '" media="(min-width: 577px)">'
+                                    . '<img srcset="' . wp_get_attachment_url( $post->ID ) . '" alt="responsive image" class="d-block img-fluid" loading="lazy">'
                                 . '</picture>'
                             . ( empty( $post->post_content ) ? '' : '</a>' )
                             . '</div>';
@@ -177,9 +173,9 @@ get_header();
                                     $horizontal_container .= '<div class="slideshow-item-small active-other">';
                                 }
 
-                            $horizontal_container .= "<a href='" . ($att_arr[$key]->guid) . "' download>
+                            $horizontal_container .= "<a href='" . ( $att_arr[$key]->guid ) . "' download>
                                         <picture>
-                                            <source srcset='$dsp_obj->guid ' media='(min-width: 1400px)'>
+                                            <source srcset='$dsp_obj->guid' media='(min-width: 1400px)'>
                                             <source srcset='$dsp_obj->guid' media='(min-width: 769px)'>
                                             <source srcset='$dsp_obj->guid' media='(min-width: 577px)'>
                                             <img srcset='$dsp_obj->guid' loading='lazy'>

@@ -16,62 +16,60 @@ get_header();
 ?>
 
 	<main id="primary" class="site-main">
-		<?php
-		if( have_posts() ) {
+		<?php if( have_posts() ) : ?>
                     
-                    echo '<header class="blog-title-header">';
+            <header class="blog-title-header">
                         
-                        echo '<p class="spi-blog-header">' . single_cat_title('',false) . '</p>';
-                        the_archive_description( '<div class="spi-blog-subheader">', '</div>' );
-                    echo '</header>';                
+                <h1 class="spi-blog-header"><?php echo single_cat_title('',false) ?></h1>
+                <?php echo the_archive_description( '<div class="spi-blog-subheader">', '</div>' ); ?>
+            </header> 
+
+            <div class="spi-newsletter-grid-container">             
+        
+            <?php
 
                 /* Start the Loop */
-                echo '<div class="spi-newsletter-grid-container">';                  
-
-                while ( have_posts() ) {
-                        the_post();
+                while ( have_posts() ) :
+                    the_post();
                     /* Code Introduced for displaying blog post as card */
-                        if (has_post_thumbnail()){
-                            $thumb_id = get_post_thumbnail_id();
-                            $thumb_url_array = wp_get_attachment_image_src($thumb_id, 'thumbnail-size', true);
-                            $label = $thumb_url_array[0];
-                            //$label = the_post_thumbnail_url('thumbnail');
-                        }
-                        elseif (function_exists('the_custom_logo')) {
-                            $custom_logo_id = get_theme_mod('custom_logo');
-                            $logo = wp_get_attachment_image_src($custom_logo_id);
-                            $label = $logo[0];
-                        }
-                        else { 
-                            $label = "";
-                        } 
+                    if ( has_post_thumbnail() ) {
+                        $thumb_id           = get_post_thumbnail_id();
+                        $thumb_url_array    = wp_get_attachment_image_src( $thumb_id, 'thumbnail-size', true );
+                        $label              = $thumb_url_array[ 0 ];
+                        //$label = the_post_thumbnail_url('thumbnail');
+                    }
+                    elseif ( function_exists('the_custom_logo') ) {
+                        $custom_logo_id     = get_theme_mod( 'custom_logo' );
+                        $logo               = wp_get_attachment_image_src( $custom_logo_id );
+                        $label              = $logo[ 0 ];
+                    }
+                    else { 
+                        $label              = "";
+                    }
+            ?>
 
-                    //<!-- introduced for cards -->
-                    echo ''    
-                        . '<div>'
-                            . '<div class="card h-100 p-3">'
-                                . '<img src="' . $label . '" class="card-img-top" alt="..." />'
-                                . '<div class="card-body">'
-                                    . '<h5 class="entry-title">'
-                                        . '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark" style="text-decoration:none;">'
-                                            . get_the_title()
-                                        . '</a>' 
-                                    . '</h5>'
-                                . '</div>'
-                            . '</div>' //<!-- card -->
-                        . '</div>'; //<!-- col -->
+                    <!-- introduced for cards -->   
+                    <div class="spi-event-card">
+                        <img src="<?php echo $label; ?>" class="" alt="..." />
+                        <div class="spi-event-title">
+                            <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" style="text-decoration:none;">
+                                <?php echo get_the_title(); ?>
+                            </a>
+                        </div>
+                    </div><!-- col -->
 
-                }
-                echo '</div>'; //<!-- End Inner Row> -->
-                the_posts_navigation();
-                echo '<br />';
+                <?php endwhile; ?>
+            </div> <!-- End Inner Row> -->
 
-            }
-            else {
+            <?php echo the_posts_navigation(); ?>
+            <br />
 
-                    get_template_part( 'template-parts/content', 'none' );
+        <?php else : 
 
-            }
+            get_template_part( 'template-parts/content', 'none' );
+
+        endif;
+        
         ?>
 	</main><!-- #main -->
 

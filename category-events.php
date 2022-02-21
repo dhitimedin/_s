@@ -15,58 +15,59 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
-		<?php
-		if ( have_posts() ) {
-                    echo '<header class="blog-title-header">';
+<main id="primary" class="site-main">
+		<?php if( have_posts() ) : ?>
+                    
+            <header class="blog-title-header">
                         
-                        echo '<p class="spi-blog-header">' . single_cat_title('',false) . '</p>';
-                        the_archive_description( '<div class="spi-blog-subheader">', '</div>' );
-                    echo '</header>';                
-                    
-			/* Start the Loop */
-                    echo '<div class="spi-newsletter-grid-container">';  
-                    while ( have_posts() ) {
-                            the_post();
-                        /* Code Introduced for displaying blog post as card */
-                            if (has_post_thumbnail()){
-                                $thumb_id = get_post_thumbnail_id();
-                                $thumb_url_array = wp_get_attachment_image_src($thumb_id, 'thumbnail-size', true);
-                                $label = $thumb_url_array[0];
-                                //$label = the_post_thumbnail_url('thumbnail');
-                            }
-                            elseif (function_exists('the_custom_logo')) {
-                                $custom_logo_id = get_theme_mod('custom_logo');
-                                $logo = wp_get_attachment_image_src($custom_logo_id);
-                                $label = $logo[0];
-                            }
-                            else { 
-                                $label = "";
-                            } 
+                <h1 class="spi-blog-header"><?php echo single_cat_title('',false) ?></h1>
+                <?php echo the_archive_description( '<div class="spi-blog-subheader">', '</div>' ); ?>
+            </header> 
 
+            <div class="spi-newsletter-grid-container">             
+        
+            <?php
 
-                        //<!-- introduced for cards -->
-                        echo '<div class="spi-event-card">'
-                                . '<img src="' . $label . '" class="" alt="..." />'
-                                . '<div class="spi-event-title">'
-                                    . '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark" style="text-decoration:none;">'
-                                        . get_the_title()
-                                    . '</a>'
-                                . '</div>'
-                            . '</div>'; //<!-- col -->
-
-
+                /* Start the Loop */
+                while ( have_posts() ) :
+                    the_post();
+                    /* Code Introduced for displaying blog post as card */
+                    if ( has_post_thumbnail() ) {
+                        $thumb_id           = get_post_thumbnail_id();
+                        $thumb_url_array    = wp_get_attachment_image_src( $thumb_id, 'thumbnail-size', true );
+                        $label              = $thumb_url_array[ 0 ];
+                        //$label = the_post_thumbnail_url('thumbnail');
                     }
-                    
-                    echo '</div>'; // <!-- End Inner Row> -->
-                    the_posts_navigation();
-                    echo '<br />';
-                }
-		else {
+                    elseif ( function_exists('the_custom_logo') ) {
+                        $custom_logo_id     = get_theme_mod( 'custom_logo' );
+                        $logo               = wp_get_attachment_image_src( $custom_logo_id );
+                        $label              = $logo[ 0 ];
+                    }
+                    else { 
+                        $label              = "";
+                    }
+            ?>
 
+                    <!-- introduced for cards -->
+                    <div class="spi-event-card">
+                        <img src="<?php echo $label; ?>" class="" alt="..." />
+                        <div class="spi-event-title">
+                            <a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" style="text-decoration:none;">
+                                <?php echo get_the_title(); ?>
+                            </a>
+                        </div>
+                    </div><!-- col -->
+
+
+                <?php endwhile; ?>
+                    
+            </div><!-- End Inner Row> -->
+            <?php the_posts_navigation(); ?>
+            <br />
+		<?php else :
 			get_template_part( 'template-parts/content', 'none' );
 
-                }
+        endif;
 		?>
 	</main><!-- #main -->
 
