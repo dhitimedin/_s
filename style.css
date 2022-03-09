@@ -708,14 +708,7 @@ textarea {
 
 
 /** Experiment **/
-/*.posts-navigation .nav-previous, .posts-navigation .nav-next {
-    clear: left;
-    border: dotted #f4f900;
-    padding: 0.4vw;
-    margin: 0.25vw 0.15vw 0.25 0;
-    border-radius: 9vw; 
-    box-sizing: border-box;
-}*/
+
 
 .posts-navigation .nav-previous a,  .posts-navigation .nav-next a{
     line-height: 180%;
@@ -757,7 +750,7 @@ textarea {
 }
 
 .site {
-    background: url(img/body-bg.jpeg) left top repeat;
+    /*background: url(img/body-bg.jpeg) left top repeat;*/
 }
 
 .comment-navigation .nav-links,
@@ -928,7 +921,7 @@ textarea {
 
 .site-footer {
     position: relative;
-    background: url(img/body-bg.jpeg) left top repeat;
+    /*background: url(img/body-bg.jpeg) left top repeat;*/
     bottom: 0;
     margin: 0;
     padding: 0;
@@ -1060,7 +1053,6 @@ textarea {
      position: relative;
      display: flex;
      align-items: center;
-     align-content: flex-start;
      height: 85%;
      width: 80%;
      max-width: 1000px;
@@ -1204,10 +1196,11 @@ textarea {
     cursor: pointer;
     font-size: 5vw;
     color: #ffe500;
+    display: flex;
     justify-content: center;
     align-items: center;            
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -1231,15 +1224,14 @@ textarea {
     .spi-coverflow-container{
         background: transparent;
         color: black !important; 
-        height: 155vw;
+        height: 125vw;
     }
             
 
     .spi-coverflow-wrapper{
         position: relative;
         background-color: transparent;
-        overflow: hidden; 
-        object-fit: contain;
+        overflow: hidden;
     }
     
    .coverflow-helper-1,  .coverflow-helper-2, .coverflow-helper-3, 
@@ -1254,15 +1246,19 @@ textarea {
     .coverflow-item, .coverflow-item-flat {
         position: absolute;
         width: 100%;
-        height: auto;
-        object-fit: contain;
+        height: fit-content;
         transition: all 1s ease-in-out;
         text-align: center;
     }
 
     
     .coverflow-item-flat {
-        top: 0;bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        bottom: 0;
+        height: 100%;
         margin: auto;
         max-height: 70vw;
     }
@@ -1393,7 +1389,8 @@ a.dropdown-item:hover{
  }
  
  .spi-header-background{
-    background: url(img/body-bg.jpeg) left top repeat;
+    /*background: url(img/body-bg.jpeg) left top repeat;*/
+    background:#FFFFFF;
  /*   display: block;
     position: fixed;
     top: 0;
@@ -1730,6 +1727,7 @@ animate-other {
 
 .spi-vertical-container {
     position: absolute; 
+    top: 0;
     height: 35vw; 
     width: 14vw;
     left: 75%;
@@ -1749,7 +1747,7 @@ animate-other {
 
 .spi-slider-container, .spi-slideshow-wrapper, .slideshow-item {
     width: 100%;
-    height: 33.5vw;         
+    height: 33.5vw;     
 }
 
 .spi-slider-container {
@@ -1957,7 +1955,7 @@ animate-other {
 
 .slideshow-item-small{
     position: absolute;
-    height: auto;
+    height: 100%;
     transition: all 1s ease-in-out;
 }
 
@@ -2010,6 +2008,22 @@ animate-other {
 }
 
 
+.spi-d-none {
+    display: none;
+}
+
+.spi-d-md-none {
+    display: none;
+}
+
+.spi-d-md-block {
+    display: block;
+}
+
+.spi-pill-container {
+    display: inline;
+}
+
 /**********************************************
 # Media Query to emulate Bootstrap 
 # medium breakpoint
@@ -2021,38 +2035,42 @@ animate-other {
         display: none;
         top: 35vw;
     }
+
+
   
     .dot {
         height: 2.5vw;
         width: 2.5vw;
     }     
     .spi-slider-container {
-        height: clamp(28rem, 110vw, 40rem);
+        height: fit-content;
         background-color: #1d4578;
-        margin-bottom: 2vw;
     }
     
     
     .home-img-overlay {
-        position: absolute;
-        top: 36vw;
+        position: relative;
         width: 100vw;
-        height: clamp(12rem,8rem ,50vw);
+        height: fit-content;
         left: 0;
         right: 0;
         margin: auto;
         background-color: #1d4578;
-    }     
+    }      
     
     .spi-vertical-container {
+        all:unset;
+        position: relative;
         display: flex;
-        height: 25vw; 
+        height: 40vw; 
         width: 90vw;
-        bottom: 0;
         left: 0;
         right: 0;
         margin: auto;
         background-color: #1d4578;
+        overflow: hidden;
+        text-align: center;
+        box-sizing: border-box;
     }
 
     .animatebox-1, .animatebox-2, 
@@ -2114,8 +2132,8 @@ animate-other {
         margin: auto;
     }    
     
-    .icon-right, .icon-right-visible {left: 90%;}
-    .icon-left, .icon-left-visible {left: .25rem;}        
+    .icon-right, .icon-right-visible {left: 90%; padding-right:2rem}
+    .icon-left, .icon-left-visible {right: 90%; padding-left:2rem}        
 
     .banner-text {
         font-size: 4vw;
@@ -2201,15 +2219,28 @@ animate-other {
     
     .spi-slideshow-wrapper-small{
         left: 0; right: 0;
-        margin: 2vw auto;
+        margin: auto;
         overflow: hidden;
         width: 65%;
-        height: 95vw;
+        height: 100%;
     }
 
     .spi-dot-container-small{
        display: none;
-    } 
+    }
+
+    .spi-d-md-block {
+        display: none;
+    }
+
+    .spi-d-md-none{
+        display: block;
+    }
+
+    .spi-pill-container {
+        display: flex;
+        justify-content: center;
+    }
     
 }
 
@@ -2223,7 +2254,7 @@ animate-other {
 # Backgrounds
 *********************************************************************/
 .spi-main-page{
-    background: url(img/body-bg.jpeg) left top repeat;
+    /*background: url(img/body-bg.jpeg) left top repeat;*/
     display: flex;
     flex-direction: column;
 }
@@ -2373,7 +2404,7 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
     height: 33vw;
     left:70vw;
     top:4.5vw;
-    z-index: 2;    
+    z-index: 2;
 }
 
 
@@ -2388,15 +2419,16 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
     .spi-card-container {
         width: 100%;
         background: transparent;
-        height: auto;
+        height: fit-content;
+        margin-bottom: 10vw;
     }
     
     .home-img-overlay-small-right, .home-img-overlay-small-left{
         all:unset;
     }
     
-    .spi-card-img-overlay-left,  .spi-card-img-overlay-right{
-        all:unset;
+    .spi-card-img-overlay-left,  .spi-card-img-overlay-right {
+        all: unset;
     }
     
     .home-card-header, .home-card-text, .spi-card-title, .spi-card-text 
@@ -2456,16 +2488,17 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
 .spi-slideshow-wrapper-menterprise{
     position: relative;
     display: block;
+    align-items: center;
     width: 70%;
     background-color: transparent;
     height: 40vw;
     overflow: hidden;
-    margin-top: 10vw;
 }
 
 .slideshow-item-enterprise {
     width: 100%;
-    height: 100%;
+    height: fit-content;
+    align-items: center;
     position: absolute;
     background-color: transparent;
     overflow: hidden;
@@ -2486,7 +2519,6 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
 }
 
 .spi-vertical-container-small{
-    
 }
 
 .spi-ourwork-header {
@@ -2512,7 +2544,7 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
 
 /* For Responsive Videos */
 .spi-res-video-container {
-    position: relative; 
+    position: relative;
     padding-bottom: 56.25%; 
     padding-top: 30px; 
     height: 0; 
@@ -2558,27 +2590,30 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
 /*    display: grid;
     grid-template-rows:2fr 1fr;
     height: 100%;
+    background-color: blue;
     background-color: blue;*/
+    height: fit-content;
 }
 
 
 .figure-img-enterprise{
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
-    right: 0;    
+    right: 0; 
+    margin: auto;   
     width: 100%;
-    height: 75%;
+    max-height: 75%;
     object-fit: contain;
 }
 
 .figure-caption-enterprise{
-    position: absolute;
+    position: relative;
     width: 100%;
-    top: 77%;
     left: 0;
     right: 0;
-    height: 33%;
+    margin: auto;
+    height: fit-content;
 }
 
 [class*="coverflow-helper-minigrid-"]  .figure-caption-enterprise {
@@ -2599,6 +2634,8 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
     
     .spi-slideshow-wrapper-menterprise{
         height: 60%; /*55vw;*/
+        display: flex;
+        align-items: center;
     } 
     
    /* .thumbnail{height: 60%;}*/
@@ -2616,6 +2653,17 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
         font-size: 1.5rem;
         margin-left: 2vw;
         margin-right: 2vw;
+    } 
+    
+    .figure-img-enterprise{
+        position: relative;  
+        width: 100%;
+        height: fit-content;
+    }
+
+    .figure-caption-enterprise{
+        position: relative;
+        height: fit-content;
     }    
     
 }
@@ -2851,7 +2899,6 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
         gap: 2vw;
         text-align: center;
         box-sizing: border-box;
-        /*padding: 0 3rem;*/
         padding: 0;
         margin: 3rem 0;
     }
@@ -2860,8 +2907,6 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
         display: flex;
         justify-content: center;
         align-items: center;
-       /* border: 2px solid black;
-        font-size: 3em;*/
     }
     
     .spi-team-figure{
@@ -2887,7 +2932,7 @@ body { font-family:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Ne
     
     .spi-team-figure{
         width: 40vw;
-        height: 103vw;
+        height: fit-content;
     }
     
     .spi-team-figure .spi-team-figure-img {

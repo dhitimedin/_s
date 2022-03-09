@@ -44,7 +44,7 @@
                             ? 'spi-card-img-overlay-right' : 'spi-card-img-overlay-left'
                         ); ?>">
                         <h2 class="home-card-header"><strong><?php echo get_the_title(); ?></strong></h2>
-                        <p class="<?php echo ( ( ( $wp_query->get_queried_object() )->post_name == "careers" ) ? 
+                        <p class="<?php echo ( in_array( ( $wp_query->get_queried_object() )->post_name, array( "careers" ) ) ? 
                                                 'spi-card-text': 'home-card-text' ); ?>">
                                                 <?php echo get_the_post_thumbnail_caption(); ?>
                         </p>

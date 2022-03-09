@@ -26,7 +26,7 @@ get_header();
          * It takes as arguments query object and post object and returns a string with the list of 
          * team members
          * 
-         * */  
+         **/  
         function team_list( $post_count, $post, $modal_tag ) {
 
             $ttlorg             = explode( ",", $post->post_excerpt , 2 );
@@ -165,7 +165,7 @@ get_header();
             </div>                     
         <?php                         
         endwhile;
-         wp_reset_postdata();                  
+        wp_reset_postdata();                  
        
          // <!-- Team Portfolio -->
 
@@ -177,35 +177,42 @@ get_header();
 
         //$section_title  = '<h2 class="text-center text-primary mb-4"><strong> The Team </strong></h2>';
         $content_title = array();
+
         $team_member_block = array();
         while ( $query_board->have_posts() ) {
             $query_board->the_post();
 
-            $content_title[ $post->post_title ] = block_title( $post ); 
+            if ( $post->post_name === 'board-members' ) {
 
-            $args = array( 
-                        'post_type'         => 'attachment',
-                        'post_status'       => 'inherit',
-                        'post_mime_type'    => 'image',
-                        'posts_per_page'    => -1,
-                        'order'             => 'ASC', 
-                        'post_parent'       => $post->ID,
-                    );
-            $modal_tag = array(
-                            "Board Members" => 'board-modal',
-                            "Team Members"  => 'team-modal',
+                $content_title[ $post->post_title ] = block_title( $post ); 
+
+
+                $args = array( 
+                            'post_type'         => 'attachment',
+                            'post_status'       => 'inherit',
+                            'post_mime_type'    => 'image',
+                            'posts_per_page'    => -1,
+                            'order'             => 'ASC', 
+                            'post_parent'       => $post->ID,
                         );
-            $members[ $post->post_title ]           = new WP_Query( $args );
-            $array_key                              = $post->post_title;
-            $team_member_block[ $post->post_title ] = '';            
-            while ( $members[ $array_key ]->have_posts() ) {
-                $members[ $array_key ]->the_post();
+                $modal_tag = array(
+                                "Board Members" => 'board-modal',
+                                "Team Members"  => 'team-modal',
+                            );
+                $members[ $post->post_title ]           = new WP_Query( $args );
+                $array_key                              = $post->post_title;
+                $team_member_block[ $post->post_title ] = '';            
+                while ( $members[ $array_key ]->have_posts() ) {
+                    $members[ $array_key ]->the_post();
 
-                $post_count = intval( $members[ $array_key ]->current_post ) + 1;
-                $team_member_block[ $array_key ] .= team_list( $post_count, $post, $modal_tag[ $array_key ] );
+                    $post_count = intval( $members[ $array_key ]->current_post ) + 1;
+                    $team_member_block[ $array_key ] .= team_list( $post_count, $post, $modal_tag[ $array_key ] );
+                }
             }
                     
         }   //End of main loop   
+
+
 
         wp_reset_postdata();
 

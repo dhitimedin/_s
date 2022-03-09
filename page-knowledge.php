@@ -91,7 +91,7 @@ get_header();
                         else {
                             $slider .= "<a class='coverflow-item coverflow-helper-other' href='" . $att_arr[$key]->guid . "' data-index='" . ( $count + 1 ) . "' download>
                                     <figure class='figure'>
-                                        <img src='$dsp_obj->guid' class='figure-img img-fluid rounded' alt='...' loading='lazy'>
+                                        <img src='$dsp_obj->guid' style='object-fit: contain; width:100%; height:fit-content' alt='...' loading='lazy'>
                                         <figcaption class='figure-caption'>$dsp_obj->post_excerpt</figcaption>
                                     </figure>                            
                                 </a>";                                    

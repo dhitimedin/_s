@@ -109,22 +109,22 @@ get_header();
                                 <p class="home-card-text">Through access to reliable and quality electricity</p>';                        
 
                         echo "<div class='spi-slider-container'>
-                                <div class='spi-vertical-container'>
-                                    $slider_vertical_container
-                                    $vertical_controls
-                                </div>
                                 <div class='spi-slideshow-wrapper'>
                                     $slider_horizontal_container
                                 </div>
                                 <div class='spi-dot-container'>
                                     $slider_dotl_container
                                 </div>
-                                <div class='home-img-overlay d-none d-md-block'>
+                                <div class='home-img-overlay spi-d-none spi-d-md-block'>
                                     $image_overlay_big_screen
                                 </div>
-                                <div class='home-img-overlay d-md-none'>
+                                <div class='home-img-overlay spi-d-md-none'>
                                     $image_overlay_small
                                 </div>
+                                <div class='spi-vertical-container'>
+                                    $slider_vertical_container
+                                    $vertical_controls
+                                </div>                                                         
                             </div>"; 
                     };
                     
@@ -178,7 +178,7 @@ get_header();
                                             <source srcset='$dsp_obj->guid' media='(min-width: 1400px)'>
                                             <source srcset='$dsp_obj->guid' media='(min-width: 769px)'>
                                             <source srcset='$dsp_obj->guid' media='(min-width: 577px)'>
-                                            <img srcset='$dsp_obj->guid' loading='lazy'>
+                                            <img srcset='$dsp_obj->guid' style='width:100%; height:auto; object-fit: contain;' loading='lazy'>
                                         </picture>
                                     </a>
                                 </div>";
@@ -210,7 +210,7 @@ get_header();
                             
                             if ( $post->post_title == "Knowledge" ) {
 
-                                $background_image .= "<picture class='d-none d-md-block'>
+                                $background_image .= "<picture class='spi-d-none spi-d-md-block'>
                                         <source srcset='$post->guid' media='(min-width: 1400px)'>
                                         <source srcset='$post->guid' media='(min-width: 769px)'>
                                         <source srcset='$post->guid' media='(min-width: 577px)'>
@@ -219,7 +219,7 @@ get_header();
 
                                 $image_overlay .= "<h2 class='home-card-header mb-2'><strong>$post->post_title</strong></h2>
                                         <p class='home-card-text mb-3'>$post->post_excerpt</p>
-                                        <div class='d-md-inline d-flex justify-content-center m-0 p-0'>
+                                        <div class='spi-pill-container'>
                                             <div class='pill-button'>
                                                 <a href='" . get_permalink( get_page_by_path( 'knowledge' ) ) . "' >
                                                     Learn More

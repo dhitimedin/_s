@@ -15,7 +15,10 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main container-fluid m-0 p-0">
+	<main id="primary" class="<?php echo ( 
+		in_array( basename( get_permalink() ), array( 'our-work') ) ? 
+		'spi-main-page' : 'site-main' ); ?> 
+		container-fluid m-0 p-0">
 
 		<?php
 		while ( have_posts() ) :

@@ -25,7 +25,7 @@
         ?>
                 <div class="spi-card-container">
                     <picture>
-                        <source srcset="<?php echo $thumnail_url; ?>" media="(min-width: 1400px)"">
+                        <source srcset="<?php echo $thumnail_url; ?>" media="(min-width: 1400px)">
                         <source srcset="<?php echo $thumnail_url; ?>" media="(min-width: 769px)">
                         <source srcset="<?php echo $thumbnailmob; ?>" media="(max-width: 768px)">                
                         <source srcset="<?php echo $thumbnailmob; ?>" media="(min-width: 577px)">

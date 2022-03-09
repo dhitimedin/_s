@@ -105,11 +105,11 @@ while($sldrs_types->have_posts()){
                         $carousel_sliders .= '<div class="slideshow-item-enterprise active-other">';
                     }                               
 
-                    $carousel_sliders .= "<figure class='figure-enterprise'>
-                            <iframe src='$slds_rsrcs' title='YouTube video player' class='figure-img-enterprise' frameborder='0' 
+                    $carousel_sliders .= "<div class='spi-res-video-container'>
+                            <iframe src='$slds_rsrcs' title='YouTube video player' frameborder='0' 
                                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='true' loading='lazy'>
                             </iframe>'
-                        </figure>                                       
+                        </div>                                       
                     </div>";
                     ++$count;                           
                 }                            
@@ -143,7 +143,7 @@ while($sldrs_types->have_posts()){
                 $slider_dotl_container .= '<span class="dot ' . (($count == 0) ? 'hmecrslatve':'') . '"></span>';
 
                 if($count < 3){ 
-                    $carousel_sliders .= '<div class="slideshow-item-enterprise active-' . ($count + 1).'">';
+                    $carousel_sliders .= '<div class="slideshow-item-enterprise active-' . ($count + 1) . '">';
                 }
                 elseif ($count >= ($slds - 2)) {
                     $carousel_sliders .= '<div class="slideshow-item-enterprise active-' . (6 - ($slds - $count)) . '">';
@@ -179,14 +179,14 @@ while($sldrs_types->have_posts()){
                 <div class="spi-slideshow-wrapper-menterprise">'
                     . $carousel_sliders
                 . '</div>
-                . <div class="line-break"></div>
-                . <div class="spi-dot-container-menterprise d-flex justify-content-evenly">'
+                <div class="line-break"></div>
+                <div class="spi-dot-container-menterprise d-flex justify-content-evenly">'
                     . $slider_dotl_container
                 . '</div>
-                . <div class="spi-vertical-container-small">'
+                <div class="spi-vertical-container-small">'
                     . $carousel_controls
                 . '</div>
-            . </div>';  
+            </div>';  
             
         }
         

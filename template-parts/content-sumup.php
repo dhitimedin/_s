@@ -41,14 +41,18 @@ if ( has_post_thumbnail() ) :
             <h2 class='home-card-header'>
                 <strong><?php echo $post->post_title ?></strong>
             </h2>
-            <p class="<?php echo ( in_array( $post->post_name, 
-                                array( 
-                                        'internships-and-fellowship',
-                                        'current-vacancy' 
-                                    ) ) ? 'spi-card-text' : 'home-card-text' ); ?>  . ">
+            <p class="<?php echo ( in_array( 
+                                    $post->post_name, 
+                                    array( 
+                                            'internships-and-fellowship',
+                                            'current-vacancy'
+                                        ) 
+                                ) ? 
+                                'spi-card-text' : 'home-card-text' ); 
+                    ?> ">
                 <?php echo get_the_post_thumbnail_caption(); ?>
             </p>
-            <div class="d-md-inline d-flex justify-content-center m-0 p-0">
+            <div class="spi-pill-container">
                 <div class="pill-button">
                     <a href="<?php echo $page_link ?>">Learn More</a>
                 </div>
